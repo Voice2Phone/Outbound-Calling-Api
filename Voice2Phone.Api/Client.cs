@@ -34,7 +34,7 @@ namespace Voice2Phone.Api
             request.Method = "POST";
             
             PrepareHeader(request, secretApiKey);
-            
+
             using (var stream = request.GetRequestStream())
             {
                 MakeCallJsonRequest jsonDataObj = new MakeCallJsonRequest
@@ -48,9 +48,9 @@ namespace Voice2Phone.Api
                     Dtmf = dtmfs
                 };
 
-                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(MakeCallJsonRequest));
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(MakeCallJsonRequest), new DataContractJsonSerializerSettings() { UseSimpleDictionaryFormat = true });                
                 ser.WriteObject(stream, jsonDataObj);
-                                
+                
                 try
                 {
                     using (var response = await request.GetResponseAsync())
